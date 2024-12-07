@@ -1,3 +1,7 @@
 export default function AboutMeMain() {
-  return <div>About Me About MeAbout MeAbout MeAbout MeAbout MeAbout MeAbout Me</div>;
+  return (
+    <div className="min-w-[700px] ">
+      <iframe className="w-full min-h-[350px]" src="https://card.pierswalter.co.uk" />
+    </div>
+  );
 }
