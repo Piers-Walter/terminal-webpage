@@ -2,6 +2,18 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --animate-blink: blink 1s steps(1) infinite;
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
 }
 
 /*

@@ -36,7 +36,7 @@ export default function ({ app }: AppWindowBarProps) {
           HoverIcon={FiMinus}
           app={app}
           className="bg-yellow-500 border-yellow-600 "
-          onClick={() => {}}
+          onClick={() => AppUtils.minimiseApp(app.uuid, appContext)}
         />
         <AppWindowBarButton
           HoverIcon={HiOutlinePlus}
@@ -45,7 +45,9 @@ export default function ({ app }: AppWindowBarProps) {
           onClick={() => {}}
         />
       </div>
-      <p className="px-3">{app.name}</p>
+      <p className="px-3">
+        {app.name} {app.minimized && " - minimised"}
+      </p>
     </div>
   );
 }
