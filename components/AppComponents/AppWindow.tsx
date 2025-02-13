@@ -59,7 +59,12 @@ export function AppWindow({ app }: AppWindowProps) {
             "scale-100 ease-in-out": !app.minimized,
           }
         )}
-        style={{ minWidth: app.sizes.minWidth + "px", minHeight: app.sizes.minHeight + "px" }}
+        style={{
+          minWidth: app.sizes.minWidth + "px",
+          minHeight: app.sizes.minHeight + "px",
+          maxWidth: app.sizes.maxWidth + "px",
+          maxHeight: app.sizes.maxHeight + "px",
+        }}
         ref={nodeRef}
       >
         <AppWindowBar app={app} />
@@ -68,7 +73,9 @@ export function AppWindow({ app }: AppWindowProps) {
           style={{
             display: "grid",
             minWidth: app.sizes.minWidth + "px",
-            minHeight: app.sizes.minHeight + "px",
+            minHeight: app.sizes.minHeight - 32 + "px",
+            maxWidth: app.sizes.maxWidth + "px",
+            maxHeight: app.sizes.maxHeight ? app.sizes.maxHeight - 32 + "px" : "",
           }}
         />
       </div>

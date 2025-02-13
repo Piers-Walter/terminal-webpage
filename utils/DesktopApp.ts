@@ -1,9 +1,10 @@
 'use client'
+import { Props, ScriptProps } from "next/script";
 import { ReactNode } from "react";
 // import { randomUUID, UUID } from "crypto";
 import { IconType } from "react-icons";
 
-type sizeLimits = {
+export type sizeLimits = {
   minWidth: number;
   minHeight: number;
   maxWidth?: number;
@@ -13,7 +14,7 @@ type sizeLimits = {
 export interface DesktopAppDetails {
   name: string,
   icon: IconType,
-  body: () => ReactNode,
+  body: ({ sizes }: { sizes: sizeLimits }) => ReactNode,
   sizes?: sizeLimits;
 }
 
@@ -23,7 +24,7 @@ export default class DesktopApp implements DesktopAppDetails {
   public x: number;
   public y: number;
   public uuid: string;
-  public body: () => ReactNode;
+  public body: ({ sizes }: { sizes: sizeLimits }) => ReactNode;
   public sizes: sizeLimits;
   public minimized: boolean;
 
@@ -34,6 +35,7 @@ export default class DesktopApp implements DesktopAppDetails {
     this.y = 0;
     this.uuid = crypto.randomUUID()
     this.body = body
+
     this.sizes = sizes || {
       minWidth: 500,
       minHeight: 500

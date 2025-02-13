@@ -14,6 +14,12 @@ export default function getAvailableApps(): DesktopAppDetails[] {
     name: "Terminal",
     icon: IoTerminal,
     body: TerminalMain,
+    sizes: {
+      minHeight: 500,
+      maxHeight: 500,
+      minWidth: 500,
+      maxWidth: 500
+    }
   },
   {
     name: "About Me",
