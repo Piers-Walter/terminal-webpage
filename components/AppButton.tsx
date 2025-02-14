@@ -8,7 +8,7 @@ interface AppButtonProps {
 }
 
 export default function AppButton({ app }: AppButtonProps) {
-  const { runningApps, setRunningApps } = useAppContext();
+  const { runningApps, setRunningApps, setActiveUUID } = useAppContext();
   const appContext = useAppContext();
 
   const startApp = () => {
@@ -21,6 +21,7 @@ export default function AppButton({ app }: AppButtonProps) {
     }
     setRunningApps((lastRunningApps) => {
       const newAppInstance: DesktopApp = new DesktopApp(app.name, app.icon, app.body, app.sizes);
+      setActiveUUID(newAppInstance.uuid);
       return [...lastRunningApps, newAppInstance];
     });
   };
