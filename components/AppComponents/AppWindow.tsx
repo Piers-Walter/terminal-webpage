@@ -60,6 +60,8 @@ export function AppWindow({ app }: AppWindowProps) {
           }
         )}
         style={{
+          height: app.sizes.minHeight + "px",
+          width: app.sizes.minWidth + "px",
           minWidth: app.sizes.minWidth + "px",
           minHeight: app.sizes.minHeight + "px",
           maxWidth: app.sizes.maxWidth + "px",

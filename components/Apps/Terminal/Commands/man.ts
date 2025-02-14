@@ -1,4 +1,4 @@
-import type { TerminalCommand } from "../CommandType";
+import type { TerminalCommand } from "./CommandType";
 import * as AllCommands from "./commands"
 
 const man: TerminalCommand = {

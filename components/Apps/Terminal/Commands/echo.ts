@@ -1,4 +1,4 @@
-import type { TerminalCommand } from "../CommandType";
+import type { TerminalCommand } from "./CommandType";
 
 const echo: TerminalCommand = {
   main: ({ args }) => {

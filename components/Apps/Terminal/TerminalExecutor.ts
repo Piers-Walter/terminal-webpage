@@ -1,5 +1,6 @@
 import React, { SetStateAction } from "react";
 import * as TerminalCommands from "./Commands/commands"
+import FakeFS from "./FileSystem/FakeFS";
 
 export default class {
   #PS1: string;
@@ -8,6 +9,7 @@ export default class {
   #input: string = "";
   #history: string[] = [];
   #historyIndex: number = -1;
+  #fs = new FakeFS()
 
   constructor({ PS1, setOutput }: { PS1: string, setOutput: React.Dispatch<SetStateAction<string>> }) {
     this.#PS1 = PS1
@@ -93,7 +95,7 @@ export default class {
       args = inputSplit.slice(1)
     }
     if (this.#commandIsValid(command)) {
-      this.#output += ((TerminalCommands as any)[command].main({ args }))
+      this.#output += ((TerminalCommands as any)[command].main({ args, fs: this.#fs }))
     } else {
       this.#output += (`Command "${command}" not found\n`)
     }
