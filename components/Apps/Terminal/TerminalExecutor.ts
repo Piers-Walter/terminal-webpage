@@ -2,7 +2,7 @@ import React, { SetStateAction } from "react";
 import * as TerminalCommands from "./Commands/commands"
 import FakeFS from "./FileSystem/FakeFS";
 
-export default class {
+const TerminalExecutor = class {
   #PS1: string;
   #setOutput: React.Dispatch<SetStateAction<string>>
   #output: string;
@@ -102,3 +102,5 @@ export default class {
     this.#end()
   }
 }
+
+export default TerminalExecutor

@@ -2,7 +2,6 @@ import { useAppContext } from "@/contexts/AppContext";
 import AppUtils from "@/utils/AppUtils";
 import DesktopApp, { DesktopAppDetails } from "@/utils/DesktopApp";
 import classNames from "classnames";
-import { useEffect } from "react";
 
 interface AppButtonProps {
   app: DesktopAppDetails;

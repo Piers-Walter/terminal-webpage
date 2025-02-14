@@ -62,7 +62,7 @@ class FakeFS {
     splitPath = splitPath.slice(1);
     for (const folder of splitPath) {
       const folderContents = traversingFolder.children;
-      let matchingChildren = folderContents.filter(child => child.name == folder && child instanceof Folder);
+      const matchingChildren = folderContents.filter(child => child.name == folder && child instanceof Folder);
       if (matchingChildren.length == 0) return false
       traversingFolder = matchingChildren[0] as Folder;
     }
@@ -83,7 +83,7 @@ class FakeFS {
     let traversingFolder = this.#root;
     for (const folder in absolutePath.split("/")) {
       const folderContents = traversingFolder.children;
-      let matchingChildren = folderContents.filter(child => child.name == folder && child instanceof Folder);
+      const matchingChildren = folderContents.filter(child => child.name == folder && child instanceof Folder);
       if (matchingChildren.length == 0) return false
       traversingFolder = matchingChildren[0] as Folder;
     }
@@ -108,7 +108,7 @@ class FakeFS {
 
   getFile({ name }: { name: string }): File | null {
     const children = this.#currentFolder.children;
-    let fileIndex = children.findIndex(child => (child instanceof File) && child.name == name)
+    const fileIndex = children.findIndex(child => (child instanceof File) && child.name == name)
     if (fileIndex > -1) {
       const toReturn = children[fileIndex]
       if (toReturn instanceof File) return toReturn;

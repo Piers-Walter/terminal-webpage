@@ -6,7 +6,7 @@ const touch: TerminalCommand = {
 
     const [filename, content] = [args[0], args.slice(1).join(" ")];
     const file = fs.getFile({ name: filename });
-    file?.setContents(`${file?.getContents()}${content}`);
+    file?.setContents({ contents: `${file?.getContents()}${content}` });
     return ""
   },
   man: `This command makes a new directory in the current directory`

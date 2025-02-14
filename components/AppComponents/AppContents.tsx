@@ -1,4 +1,3 @@
-import { useAppContext } from "@/contexts/AppContext";
 import DesktopApp from "@/utils/DesktopApp";
 import { CSSProperties } from "react";
 

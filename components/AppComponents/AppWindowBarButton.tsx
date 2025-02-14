@@ -1,5 +1,3 @@
-import { useAppContext } from "@/contexts/AppContext";
-import AppUtils from "@/utils/AppUtils";
 import DesktopApp from "@/utils/DesktopApp";
 import { IconType } from "react-icons";
 
@@ -10,9 +8,7 @@ interface AppWindowBarButtonProps {
   HoverIcon: IconType;
 }
 
-export default function ({ className, app, onClick, HoverIcon }: AppWindowBarButtonProps) {
-  const appContext = useAppContext();
-
+const AppWindowBarButton = ({ className, onClick, HoverIcon }: AppWindowBarButtonProps) => {
   return (
     <div
       onMouseDown={(e) => e.stopPropagation()}
@@ -22,4 +18,6 @@ export default function ({ className, app, onClick, HoverIcon }: AppWindowBarBut
       <HoverIcon className="opacity-0 hover:opacity-60" size={10} />
     </div>
   );
-}
+};
+
+export default AppWindowBarButton;
