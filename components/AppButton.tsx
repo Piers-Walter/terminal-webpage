@@ -21,7 +21,7 @@ export default function AppButton({ app }: AppButtonProps) {
       return;
     }
     setRunningApps((lastRunningApps) => {
-      const newAppInstance: DesktopApp = new DesktopApp(app.name, app.icon, app.body);
+      const newAppInstance: DesktopApp = new DesktopApp(app.name, app.icon, app.body, app.sizes);
       return [...lastRunningApps, newAppInstance];
     });
   };
