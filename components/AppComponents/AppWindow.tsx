@@ -36,7 +36,7 @@ export function AppWindow({ app }: AppWindowProps) {
     const highestZIndex = getHighestZIndex();
     const target = (e.currentTarget as HTMLElement) || undefined;
     if (!target || !target.style) return;
-    if (parseInt(target.style.zIndex) < highestZIndex) {
+    if (parseInt(target.style.zIndex) <= highestZIndex || target.style.zIndex === "") {
       target.style.zIndex = (highestZIndex + 1).toString();
     }
   };
@@ -52,7 +52,7 @@ export function AppWindow({ app }: AppWindowProps) {
     <Draggable onMouseDown={setZIndexClick} handle=".windowbar" bounds="parent" onDrag={setZIndex} nodeRef={nodeRef}>
       <div
         className={classNames(
-          "min-w-20 duration-[300ms] inline-block absolute window shadow-2xl rounded-md border border-[rgba(0,0,0,0.0.2)] resize overflow-hidden transition-[scale]",
+          "min-w-20 z-0 duration-[300ms] inline-block absolute window shadow-2xl rounded-md border border-[rgba(0,0,0,0.0.2)] resize overflow-hidden transition-[scale]",
           {
             "shadow-2xl": appContext.activeUUID == app.uuid,
             "scale-0": app.minimized,
