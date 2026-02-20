@@ -74,7 +74,11 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        env:
+          NEXT_PUBLIC_GIT_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          export NEXT_PUBLIC_GIT_COMMIT=$(echo $NEXT_PUBLIC_GIT_COMMIT | cut -c1-7)
+          ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
