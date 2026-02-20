@@ -1,4 +1,4 @@
-class Folder {
+export class Folder {
   name: string;
   parent: Folder | null;
   children: (Folder | File)[] = [];
@@ -21,7 +21,7 @@ class Folder {
   }
 }
 
-class File {
+export class File {
   name: string;
   #contents: string = "";
   constructor({ name }: { name: string }) {
@@ -42,6 +42,11 @@ class File {
   }
 }
 
+interface FSReturn {
+  success: boolean;
+  message: string;
+}
+
 class FakeFS {
   #root: Folder = new Folder({ name: "/", parent: null });
   #currentFolder: Folder = this.#root;
@@ -50,10 +55,10 @@ class FakeFS {
 
   }
 
-  changeDir({ newPath }: { newPath: string }): boolean {
+  changeDir({ newPath }: { newPath: string }): FSReturn {
     if (newPath == "/") {
       this.#currentFolder = this.#root;
-      return true;
+      return { success: true, message: "" };
     }
     const absolutePath = this.resolveDir({ path: newPath });
 
@@ -63,11 +68,11 @@ class FakeFS {
     for (const folder of splitPath) {
       const folderContents = traversingFolder.children;
       const matchingChildren = folderContents.filter(child => child.name == folder && child instanceof Folder);
-      if (matchingChildren.length == 0) return false
+      if (matchingChildren.length == 0) return { success: false, message: `Error: directory ${folder} doesn't exist\n` };
       traversingFolder = matchingChildren[0] as Folder;
     }
     this.#currentFolder = traversingFolder;
-    return true;
+    return { success: true, message: "" };
   }
 
   getCwd(): string {
@@ -78,7 +83,7 @@ class FakeFS {
     return this.#currentFolder.children;
   }
 
-  checkDirExists({ path }: { path: string }): boolean {
+  #checkDirExists({ path }: { path: string }): boolean {
     const absolutePath = this.resolveDir({ path });
     let traversingFolder = this.#root;
     for (const folder in absolutePath.split("/")) {
@@ -99,11 +104,11 @@ class FakeFS {
     return path[0] == "/"
   }
 
-  mkDir({ folderName }: { folderName: string }): boolean {
-    if (this.#currentFolder.children.find(child => child.name == folderName)) return false;
+  mkDir({ folderName }: { folderName: string }): FSReturn {
+    if (this.#currentFolder.children.find(child => child.name == folderName)) return { success: false, message: "Folder already exists" };
     const newFolder = new Folder({ name: folderName, parent: this.#currentFolder })
     this.#currentFolder.addChild({ child: newFolder })
-    return true;
+    return { success: true, message: "" };
   }
 
   getFile({ name }: { name: string }): File | null {
@@ -116,13 +121,22 @@ class FakeFS {
     return null;
   }
 
-  addFile({ filename }: { filename: string }): boolean {
-    if (this.#currentFolder.children.find(child => child.name == filename)) return false;
+  addFile({ filename }: { filename: string }): FSReturn {
+    if (this.#currentFolder.children.find(child => child.name == filename)) return { success: false, message: "File already exists" };
     const newFile = new File({ name: filename })
     this.#currentFolder.addChild({ child: newFile });
-    return true;
+    return { success: true, message: "" };
   }
 
+  deleteFile({ filename }: { filename: string }): FSReturn {
+    const children = this.#currentFolder.children;
+    const fileIndex = children.findIndex(child => (child instanceof File) && child.name == filename)
+    if (fileIndex > -1) {
+      children.splice(fileIndex, 1)
+      return { success: true, message: "" };
+    }
+    return { success: false, message: "File doesn't exist" };
+  }
 }
 
 export default FakeFS;

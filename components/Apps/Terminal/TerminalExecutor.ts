@@ -1,21 +1,25 @@
 import React, { SetStateAction } from "react";
-import * as TerminalCommands from "./Commands/commands"
+import { commands } from "./Commands/commands";
 import FakeFS from "./FileSystem/FakeFS";
 
 const TerminalExecutor = class {
-  #PS1: string;
   #setOutput: React.Dispatch<SetStateAction<string>>
   #output: string;
   #input: string = "";
   #history: string[] = [];
   #historyIndex: number = -1;
-  #fs = new FakeFS()
+  #fs: FakeFS | undefined = undefined
+  #environment: { [key: string]: string } = {}
 
-  constructor({ PS1, setOutput }: { PS1: string, setOutput: React.Dispatch<SetStateAction<string>> }) {
-    this.#PS1 = PS1
+  constructor({ PS1, setOutput, fileSystem }: { PS1: string, setOutput: React.Dispatch<SetStateAction<string>>, fileSystem: FakeFS }) {
     this.#output = PS1;
     this.#setOutput = setOutput
     this.#setOutput(this.#output);
+    this.#fs = fileSystem
+    this.#environment = {
+      "PS1": PS1,
+      "USER": "user",
+    }
     console.log("New Executor")
   }
 
@@ -78,26 +82,46 @@ const TerminalExecutor = class {
 
 
   #commandIsValid(command: string): boolean {
-    return Object.hasOwn(TerminalCommands, command)
+    return Object.hasOwn(commands, command)
   }
 
   #end() {
     this.#input = ""
-    this.#output += this.#PS1;
+    this.#output += this.#environment["PS1"];
     this.#flushOutput();
   }
 
   #execute() {
     const inputSplit = this.#input.split(" ")
+
+    // Check the environment for substitutions
+    for (const input in inputSplit) {
+      const arg = inputSplit[input]
+      const key = arg.slice(1)
+      if (arg[0] == "$") {
+        if (Object.hasOwn(this.#environment, key)) {
+          inputSplit[input] = this.#environment[key]
+        } else {
+          inputSplit[input] = ""
+        }
+      }
+    }
+
     const command = inputSplit[0];
     let args: string[] = []
     if (inputSplit.length > 1) {
       args = inputSplit.slice(1)
     }
+    if (this.#fs == undefined) {
+      this.#output += "File system not found\n"
+      this.#end()
+      return;
+    }
     if (this.#commandIsValid(command)) {
-      this.#output += ((TerminalCommands as any)[command].main({ args, fs: this.#fs }))
+      this.#output += (commands[command].main({ args, fs: this.#fs, environment: this.#environment }))
     } else {
-      this.#output += (`Command "${command}" not found\n`)
+      if (command == "") this.#output += "";
+      else { this.#output += (`Command "${command}" not found\n`) }
     }
     this.#end()
   }

@@ -1,40 +1,30 @@
 import { useAppContext } from "@/contexts/AppContext";
 import AppUtils from "@/utils/AppUtils";
 import DesktopApp, { DesktopAppDetails } from "@/utils/DesktopApp";
+import startApp from "@/utils/startApp";
 import classNames from "classnames";
+import { RiQuestionMark } from "react-icons/ri";
 
 interface AppButtonProps {
   app: DesktopAppDetails;
 }
 
 export default function AppButton({ app }: AppButtonProps) {
-  const { runningApps, setRunningApps, setActiveUUID } = useAppContext();
   const appContext = useAppContext();
 
-  const startApp = () => {
-    const appIndex = runningApps.findIndex((runningApp) => runningApp.name == app.name);
-    if (appIndex != -1) {
-      const newRunningApps = [...runningApps];
-      newRunningApps[appIndex].minimized = false;
-      setRunningApps(newRunningApps);
-      return;
-    }
-    setRunningApps((lastRunningApps) => {
-      const newAppInstance: DesktopApp = new DesktopApp(app.name, app.icon, app.body, app.sizes);
-      setActiveUUID(newAppInstance.uuid);
-      return [...lastRunningApps, newAppInstance];
-    });
-  };
+  if (app.icon == undefined) {
+    app.icon = RiQuestionMark;
+  }
 
   return (
     <div className="flex flex-col items-center" id={app.name}>
       <app.icon
         size={45}
-        className="active:contrast-[25%] hover:scale-[110%] origin-bottom transition-transform duration-200"
-        onClick={() => startApp()}
+        className="origin-bottom transition-transform duration-200 hover:scale-[110%] active:contrast-[25%]"
+        onClick={() => startApp(app, appContext)}
       />
       <div
-        className={classNames("rounded-full h-1 w-1 bg-gray-500", {
+        className={classNames("h-1 w-1 rounded-full bg-gray-500", {
           "opacity-0": !AppUtils.isAppRunning(app.name, appContext),
         })}
       />

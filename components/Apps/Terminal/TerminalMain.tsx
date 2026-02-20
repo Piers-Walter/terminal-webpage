@@ -1,13 +1,15 @@
-import {  useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import TerminalExecutor from "./TerminalExecutor";
 import { sizeLimits } from "@/utils/DesktopApp";
+import { useAppContext } from "@/contexts/AppContext";
 
 const PS1 = "user@pierswalter.co.uk>";
 
 export default function TerminalMain({ sizes }: { sizes?: sizeLimits }) {
   const [output, setOutput] = useState("Welcome to Terminal");
+  const fileSystem = useAppContext().fileSystem;
 
-  const executor = useMemo(() => new TerminalExecutor({ PS1, setOutput }), []);
+  const executor = useMemo(() => new TerminalExecutor({ PS1, setOutput, fileSystem }), []);
 
   useEffect(() => {
     executor?.setOutputHandler(setOutput);

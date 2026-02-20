@@ -1,7 +1,5 @@
 'use client'
-import { Props, ScriptProps } from "next/script";
 import { ReactNode } from "react";
-// import { randomUUID, UUID } from "crypto";
 import { IconType } from "react-icons";
 
 export type sizeLimits = {
@@ -13,14 +11,16 @@ export type sizeLimits = {
 
 export interface DesktopAppDetails {
   name: string,
-  icon: IconType,
+  icon?: IconType,
   body: ({ sizes }: { sizes?: sizeLimits }) => ReactNode,
   sizes?: sizeLimits;
+  kind: "app" | "widget"
 }
 
 export default class DesktopApp implements DesktopAppDetails {
   public readonly name: string;
-  public readonly icon: IconType;
+  public readonly icon: IconType | undefined;
+  public readonly kind: "app" | "widget";
   public x: number;
   public y: number;
   public uuid: string;
@@ -28,13 +28,14 @@ export default class DesktopApp implements DesktopAppDetails {
   public sizes: sizeLimits;
   public minimized: boolean;
 
-  constructor(name: string, icon: IconType, body: ({ sizes }: { sizes?: sizeLimits }) => ReactNode, sizes?: sizeLimits) {
+  constructor(name: string, icon: IconType | undefined, body: ({ sizes }: { sizes?: sizeLimits }) => ReactNode, sizes?: sizeLimits, kind: "app" | "widget" = "app") {
     this.name = name;
-    this.icon = icon;
+    this.icon = icon
     this.x = 0;
     this.y = 0;
     this.uuid = crypto.randomUUID()
     this.body = body
+    this.kind = kind
 
     this.sizes = sizes || {
       minWidth: 500,

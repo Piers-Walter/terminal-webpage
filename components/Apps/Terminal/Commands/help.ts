@@ -1,9 +1,10 @@
 import type { TerminalCommand } from "./CommandType";
-import * as AllCommands from "./commands"
+import { commands } from "./commands"
 
 const help: TerminalCommand = {
   main: ({ }) => {
-    return `Available commands:\n${Object.keys(AllCommands).join("\n")}\n`
+    const allCommands = Object.keys(commands).toSorted().join("\n")
+    return `Available commands:\n${allCommands}\n`
   },
   man: `This command prints the available commands for the terminal`
 }
