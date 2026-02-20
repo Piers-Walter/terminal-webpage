@@ -1,10 +1,10 @@
-import { KeyboardEventHandler, use, useEffect, useMemo, useRef, useState } from "react";
+import {  useEffect, useMemo, useRef, useState } from "react";
 import TerminalExecutor from "./TerminalExecutor";
 import { sizeLimits } from "@/utils/DesktopApp";
 
 const PS1 = "user@pierswalter.co.uk>";
 
-export default function TerminalMain({ sizes }: { sizes: sizeLimits }) {
+export default function TerminalMain({ sizes }: { sizes?: sizeLimits }) {
   const [output, setOutput] = useState("Welcome to Terminal");
 
   const executor = useMemo(() => new TerminalExecutor({ PS1, setOutput }), []);
@@ -29,7 +29,7 @@ export default function TerminalMain({ sizes }: { sizes: sizeLimits }) {
   useEffect(() => {
     if (!inputRef.current) return;
     console.log("Adding EL");
-    inputRef.current.addEventListener("input", handleInput);
+    inputRef.current.addEventListener("input", handleInput as EventListener);
     inputRef.current.addEventListener("keydown", handleKeyDown);
   }, [inputRef.current]);
 
@@ -62,7 +62,7 @@ export default function TerminalMain({ sizes }: { sizes: sizeLimits }) {
         inputRef.current?.focus();
       }}
       style={{
-        minHeight: sizes.minHeight - 32 + "px",
+        minHeight: sizes ? sizes.minHeight - 32 + "px" : "500px",
         // maxHeight: sizes.maxHeight ? sizes.maxHeight - 32 : "468px",
       }}
     >

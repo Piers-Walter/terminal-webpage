@@ -1,7 +1,7 @@
 import { useAppContext } from "@/contexts/AppContext";
 import { AppWindow } from "./AppComponents/AppWindow";
 
-export default function () {
+const AppRenderer = () => {
   const appContext = useAppContext();
 
   return (
@@ -11,4 +11,6 @@ export default function () {
       })}
     </div>
   );
-}
+};
+
+export default AppRenderer;

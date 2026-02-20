@@ -1,5 +1,4 @@
 import type { TerminalCommand } from "./CommandType";
-import * as AllCommands from "./commands"
 
 const opens = [{
   arg: "blog",

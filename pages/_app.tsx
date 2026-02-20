@@ -1,4 +1,4 @@
-import { AppContext, AppContextType } from "@/contexts/AppContext";
+import { AppContext } from "@/contexts/AppContext";
 import "@/styles/globals.css";
 import DesktopApp from "@/utils/DesktopApp";
 import type { AppProps } from "next/app";

@@ -46,7 +46,7 @@ export function AppWindow({ app }: AppWindowProps) {
     const iconPosition = iconNode?.getBoundingClientRect();
     if (!iconPosition || !nodeRef.current) return;
     nodeRef.current.style.transformOrigin = `${iconPosition.x}px ${iconPosition.y}px`;
-  }, []);
+  }, [app.name]);
 
   return (
     <Draggable onMouseDown={setZIndexClick} handle=".windowbar" bounds="parent" onDrag={setZIndex} nodeRef={nodeRef}>

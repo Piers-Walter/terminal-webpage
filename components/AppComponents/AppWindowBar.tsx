@@ -1,7 +1,6 @@
 import { useAppContext } from "@/contexts/AppContext";
 import AppUtils from "@/utils/AppUtils";
 import DesktopApp from "@/utils/DesktopApp";
-import { useState } from "react";
 import AppWindowBarButton from "./AppWindowBarButton";
 import classNames from "classnames";
 import { IoMdClose } from "react-icons/io";
@@ -12,7 +11,7 @@ interface AppWindowBarProps {
   app: DesktopApp;
 }
 
-export default function ({ app }: AppWindowBarProps) {
+const AppWindowBar = ({ app }: AppWindowBarProps) => {
   const appContext = useAppContext();
 
   return (
@@ -50,4 +49,6 @@ export default function ({ app }: AppWindowBarProps) {
       </p>
     </div>
   );
-}
+};
+
+export default AppWindowBar;

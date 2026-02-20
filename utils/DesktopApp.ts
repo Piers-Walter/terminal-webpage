@@ -14,7 +14,7 @@ export type sizeLimits = {
 export interface DesktopAppDetails {
   name: string,
   icon: IconType,
-  body: ({ sizes }: { sizes: sizeLimits }) => ReactNode,
+  body: ({ sizes }: { sizes?: sizeLimits }) => ReactNode,
   sizes?: sizeLimits;
 }
 
@@ -24,11 +24,11 @@ export default class DesktopApp implements DesktopAppDetails {
   public x: number;
   public y: number;
   public uuid: string;
-  public body: ({ sizes }: { sizes: sizeLimits }) => ReactNode;
+  public body: ({ sizes }: { sizes?: sizeLimits }) => ReactNode;
   public sizes: sizeLimits;
   public minimized: boolean;
 
-  constructor(name: string, icon: IconType, body: () => ReactNode, sizes?: sizeLimits) {
+  constructor(name: string, icon: IconType, body: ({ sizes }: { sizes?: sizeLimits }) => ReactNode, sizes?: sizeLimits) {
     this.name = name;
     this.icon = icon;
     this.x = 0;
