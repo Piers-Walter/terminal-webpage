@@ -13,7 +13,7 @@ export default function getAvailableApps(): DesktopAppDetails[] {
   const appTemplates: DesktopAppDetails[] = [{
     name: "Terminal",
     icon: IoTerminal,
-    body: TerminalMain
+    body: TerminalMain,
   },
   {
     name: "About Me",

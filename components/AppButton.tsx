@@ -13,23 +13,21 @@ export default function AppButton({ app }: AppButtonProps) {
   const appContext = useAppContext();
 
   const startApp = () => {
-    if (runningApps.findIndex((runningApp) => runningApp.name == app.name) != -1) {
-      console.log(`App ${app.name} is already running`);
+    const appIndex = runningApps.findIndex((runningApp) => runningApp.name == app.name);
+    if (appIndex != -1) {
+      const newRunningApps = [...runningApps];
+      newRunningApps[appIndex].minimized = false;
+      setRunningApps(newRunningApps);
       return;
     }
     setRunningApps((lastRunningApps) => {
-      console.log(`Starting app ${app.name}`);
       const newAppInstance: DesktopApp = new DesktopApp(app.name, app.icon, app.body);
       return [...lastRunningApps, newAppInstance];
     });
   };
 
-  useEffect(() => {
-    console.log(runningApps);
-  }, [runningApps]);
-
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center" id={app.name}>
       <app.icon
         size={45}
         className="active:contrast-[25%] hover:scale-[110%] origin-bottom transition-transform duration-200"
