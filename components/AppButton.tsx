@@ -1,6 +1,6 @@
 import { useAppContext } from "@/contexts/AppContext";
 import AppUtils from "@/utils/AppUtils";
-import DesktopApp, { DesktopAppDetails } from "@/utils/DesktopApp";
+import { DesktopAppDetails } from "@/utils/DesktopApp";
 import startApp from "@/utils/startApp";
 import classNames from "classnames";
 import { RiQuestionMark } from "react-icons/ri";

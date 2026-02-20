@@ -2,9 +2,7 @@
 import { useAppContext } from "@/contexts/AppContext";
 import { useState, useEffect } from "react";
 import { FaRegClock } from "react-icons/fa";
-import { GiOrangeSlice } from "react-icons/gi";
 import useClickDetector from "@/utils/ClickDetector";
-import { SiGamebanana } from "react-icons/si";
 import { FaOtter } from "react-icons/fa6";
 import { allAppsByName } from "@/utils/getAvailableApps";
 import startApp from "@/utils/startApp";
@@ -22,6 +20,7 @@ const Menu = ({ hide }: { hide: () => void }) => {
       <ul>
         {menuItems.map((item) => (
           <li
+            key={item.name}
             onClick={() => {
               startApp(item.app, appContext);
               hide();

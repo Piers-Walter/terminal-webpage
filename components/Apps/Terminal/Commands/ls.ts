@@ -1,5 +1,5 @@
 import type { TerminalCommand } from "./CommandType";
-import { File, Folder } from "../FileSystem/FakeFS";
+import { Folder } from "../FileSystem/FakeFS";
 import checkFlags from "./commonUtils/checkFlags";
 
 const supportedFlags = ["-l", "-a"];
