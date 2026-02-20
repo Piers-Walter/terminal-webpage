@@ -9,7 +9,7 @@ interface AppContentsProps {
 
 export default function AppContents({ app, style }: AppContentsProps) {
   return (
-    <div style={style} className="h-full bg-white block rounded-b-md">
+    <div style={style} className="h-[calc(100%-32px)] bg-white block rounded-b-md">
       <app.body sizes={app.sizes} />
     </div>
   );

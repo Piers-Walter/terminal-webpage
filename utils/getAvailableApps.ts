@@ -16,9 +16,7 @@ export default function getAvailableApps(): DesktopAppDetails[] {
     body: TerminalMain,
     sizes: {
       minHeight: 500,
-      maxHeight: 500,
       minWidth: 500,
-      maxWidth: 500
     }
   },
   {

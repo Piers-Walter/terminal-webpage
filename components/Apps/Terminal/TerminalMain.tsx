@@ -56,12 +56,15 @@ export default function TerminalMain({ sizes }: { sizes: sizeLimits }) {
 
   return (
     <div
-      className="h-full w-full max-w-full bg-black font-mono text-green-500 overflow-scroll"
+      className="h-full w-full max-w-full bg-black font-mono text-green-500 overflow-scroll no-scrollbar"
       ref={displayRef}
       onClick={() => {
         inputRef.current?.focus();
       }}
-      style={{ minHeight: sizes.minHeight - 32 + "px", maxHeight: sizes.maxHeight ? sizes.maxHeight - 32 : "100%" }}
+      style={{
+        minHeight: sizes.minHeight - 32 + "px",
+        // maxHeight: sizes.maxHeight ? sizes.maxHeight - 32 : "468px",
+      }}
     >
       <TerminalRenderer />
     </div>
