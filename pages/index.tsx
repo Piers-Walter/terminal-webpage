@@ -4,7 +4,7 @@ import AppRenderer from "@/components/AppRenderer";
 
 export default function Home() {
   return (
-    <div className="h-screen w-screen overflow-clip bg-teal-500">
+    <div className="h-screen w-screen overflow-clip bg-blue-400">
       <HeaderBar />
       <AppRenderer />
       <FooterBar />
