@@ -1,7 +1,7 @@
 import DesktopApp from "@/utils/DesktopApp";
 import AppWindowBar from "./AppWindowBar";
 import AppContents from "./AppContents";
-import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
+import Draggable from "react-draggable";
 import { useEffect, useRef } from "react";
 import { useAppContext } from "@/contexts/AppContext";
 import classNames from "classnames";

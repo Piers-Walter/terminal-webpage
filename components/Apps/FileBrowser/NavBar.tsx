@@ -1,4 +1,3 @@
-import { BsBack } from "react-icons/bs";
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
 
 interface NavBarState {

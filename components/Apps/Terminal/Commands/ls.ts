@@ -9,7 +9,7 @@ const ls: TerminalCommand = {
     const flagCheck = checkFlags({ flags: args, supportedFlags });
     if (flagCheck.success === false) return flagCheck.message;
 
-    let fsResults = fs.readDir(cwdHandler.cwd);
+    const fsResults = fs.readDir(cwdHandler.cwd);
     if (fsResults.success == false) {
       return `Error: ${fsResults.message}\n`;
     }

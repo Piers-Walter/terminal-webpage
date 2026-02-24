@@ -34,7 +34,10 @@ export default function FileBrowserMain() {
   return (
     <div className="flex h-full w-full flex-col">
       <NavBar currentPath={cwdHandler.cwd} />
-      <div className="flex flex-1 flex-wrap gap-4 overflow-y-auto p-4">
+      <div
+        className="flex min-h-0 flex-1 flex-wrap content-start gap-4 overflow-y-auto p-4"
+        style={{ flex: "1 1 1px" }}
+      >
         {entries.map((entry) => (
           <div
             className="flex w-24 cursor-pointer flex-col items-center justify-center self-start rounded p-2 hover:bg-gray-100"

@@ -200,6 +200,19 @@ class FakeFS {
     this.#emit({ type: 'create', path: absolutePath, item: newFile });
     return { success: true, message: `File "${name}" created`, directory: folder.children, fileHandle: newFile };
   }
+
+  deleteFile(absolutePath: string): FSReturn {
+    const folder = this.#traverseToFolder(absolutePath.split("/").slice(0, -1).join("/"));
+    if (!folder) return { success: false, message: `Folder "${absolutePath}" not found`, directory: [] };
+    const name = absolutePath.split("/").pop();
+    const file = folder.children.find(child => child instanceof File && child.name === name) as File | undefined;
+    if (!file) return { success: false, message: `File "${absolutePath}" not found`, directory: [] };
+    const index = folder.children.indexOf(file);
+    if (index === -1) return { success: false, message: `File "${absolutePath}" not found`, directory: [] };
+    folder.children.splice(index, 1);
+    this.#emit({ type: 'delete', path: absolutePath, item: file });
+    return { success: true, message: `File "${absolutePath}" deleted`, directory: folder.children };
+  }
 }
 
 export default FakeFS;

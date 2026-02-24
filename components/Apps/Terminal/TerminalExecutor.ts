@@ -1,6 +1,6 @@
 import React, { SetStateAction } from "react";
 import { commands } from "./Commands/commands";
-import FakeFS, { Folder } from "./FileSystem/FakeFS";
+import FakeFS from "./FileSystem/FakeFS";
 import cwdHandler from "@/utils/cwdHandler"
 
 const TerminalExecutor = class {
