@@ -1,8 +1,8 @@
 import type { TerminalCommand } from "./CommandType";
 
 const pwd: TerminalCommand = {
-  main: ({ fs }) => {
-    return fs.getCwd() + "\n"
+  main: ({ cwdHandler }) => {
+    return cwdHandler.cwd + "\n"
   },
   man: `This command prints the current directory`
 }

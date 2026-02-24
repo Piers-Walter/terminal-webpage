@@ -1,6 +1,7 @@
 import React, { SetStateAction } from "react";
 import { commands } from "./Commands/commands";
-import FakeFS from "./FileSystem/FakeFS";
+import FakeFS, { Folder } from "./FileSystem/FakeFS";
+import cwdHandler from "@/utils/cwdHandler"
 
 const TerminalExecutor = class {
   #setOutput: React.Dispatch<SetStateAction<string>>
@@ -8,7 +9,9 @@ const TerminalExecutor = class {
   #input: string = "";
   #history: string[] = [];
   #historyIndex: number = -1;
-  #fs: FakeFS | undefined = undefined
+  #fs: FakeFS | undefined = undefined;
+  cwdHandler = cwdHandler();
+
   #environment: { [key: string]: string } = {}
 
   constructor({ PS1, setOutput, fileSystem }: { PS1: string, setOutput: React.Dispatch<SetStateAction<string>>, fileSystem: FakeFS }) {
@@ -118,7 +121,7 @@ const TerminalExecutor = class {
       return;
     }
     if (this.#commandIsValid(command)) {
-      this.#output += (commands[command].main({ args, fs: this.#fs, environment: this.#environment }))
+      this.#output += (commands[command].main({ args, fs: this.#fs, environment: this.#environment, cwdHandler: this.cwdHandler }))
     } else {
       if (command == "") this.#output += "";
       else { this.#output += (`Command "${command}" not found\n`) }
@@ -128,3 +131,4 @@ const TerminalExecutor = class {
 }
 
 export default TerminalExecutor
+export type { cwdHandler }

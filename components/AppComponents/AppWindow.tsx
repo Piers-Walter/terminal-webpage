@@ -15,29 +15,13 @@ export function AppWindow({ app }: AppWindowProps) {
   const nodeRef = useRef<HTMLDivElement>(null);
   const appContext = useAppContext();
 
-  const setZIndex = (e: DraggableEvent, d: DraggableData) => {
-    appContext.setActiveUUID(app.uuid);
-
-    const highestZIndex = getHighestZIndex();
-    if (parseInt(d.node.style.zIndex) < highestZIndex) {
-      d.node.style.zIndex = (highestZIndex + 1).toString();
-    }
-
-    if (d) {
-      const iconNode = document.getElementById(app.name);
-      const iconPosition = iconNode?.getBoundingClientRect();
-      if (!iconPosition) return;
-
-      d.node.style.transformOrigin = `${iconPosition.x}px ${iconPosition.y}px`;
-    }
-  };
   const setZIndexClick = (e: MouseEvent) => {
     appContext.setActiveUUID(app.uuid);
     const highestZIndex = getHighestZIndex();
     const target = (e.currentTarget as HTMLElement) || undefined;
     if (!target || !target.style) return;
     if (parseInt(target.style.zIndex) <= highestZIndex || target.style.zIndex === "") {
-      target.style.zIndex = (highestZIndex + 1).toString();
+      target.style.zIndex = (highestZIndex + 2).toString();
     }
   };
 
@@ -49,10 +33,10 @@ export function AppWindow({ app }: AppWindowProps) {
   }, [app.name]);
 
   return (
-    <Draggable onMouseDown={setZIndexClick} handle=".windowbar" bounds="parent" onDrag={setZIndex} nodeRef={nodeRef}>
+    <Draggable onMouseDown={setZIndexClick} handle=".windowbar" bounds="parent" nodeRef={nodeRef}>
       <div
         className={classNames(
-          "min-w-20 z-0 duration-[300ms] inline-block absolute window shadow-2xl rounded-md border border-[rgba(0,0,0,0.0.2)] resize overflow-hidden transition-[scale]",
+          "window absolute z-0 inline-block min-w-20 resize overflow-hidden rounded-md border border-[rgba(0,0,0,0.0.2)] shadow-2xl transition-[scale] duration-[300ms]",
           {
             "shadow-2xl": appContext.activeUUID == app.uuid,
             "scale-0": app.minimized,

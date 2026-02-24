@@ -15,6 +15,7 @@ import rm from "./rm"
 import env from "./env"
 import export_cmd from "./export"
 import unset from "./unset"
+import rmdir from "./rmdir"
 
 export const commands: Record<string, TerminalCommand> = {
   echo,
@@ -31,5 +32,6 @@ export const commands: Record<string, TerminalCommand> = {
   rm,
   env,
   export: export_cmd, // export is a reserved keyword
-  unset
+  unset,
+  rmdir
 }

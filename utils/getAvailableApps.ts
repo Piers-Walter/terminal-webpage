@@ -6,6 +6,8 @@ import AboutMeMain from "@/components/Apps/AboutMe/AboutMeMain";
 import { BsNewspaper } from "react-icons/bs";
 import BlogMain from "@/components/Apps/Blog/BlogMain";
 import AboutPage from "@/components/Widgets/AboutPage/AboutPage";
+import FileBrowserMain from "@/components/Apps/FileBrowser/FileBrowserMain";
+import { HiFolder } from "react-icons/hi2";
 
 const allApps: DesktopAppDetails[] = [
   {
@@ -36,6 +38,15 @@ const allApps: DesktopAppDetails[] = [
     kind: "widget",
     sizes: {
       minHeight: 300,
+      minWidth: 500,
+    },
+  }, {
+    name: "Files",
+    icon: HiFolder,
+    body: FileBrowserMain,
+    kind: "app",
+    sizes: {
+      minHeight: 500,
       minWidth: 500,
     },
   }
