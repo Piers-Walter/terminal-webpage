@@ -56,20 +56,19 @@ interface FSReturn {
   fileHandle?: File;
 }
 
+const ROOT_FOLDERS = ["home", "etc"]
+
 class FakeFS {
   #root: Folder = new Folder({ name: "/", parent: null });
   #listeners: FSEventListener[] = [];
 
   constructor() {
     this.#root.parent = this.#root
-    this.#root.addChild({ child: new Folder({ name: "home", parent: this.#root }) });
-    this.#root.addChild({ child: new Folder({ name: "bin", parent: this.#root }) });
-    this.#root.addChild({ child: new Folder({ name: "etc", parent: this.#root }) });
-    this.#root.addChild({ child: new Folder({ name: "usr", parent: this.#root }) });
-    this.#root.addChild({ child: new Folder({ name: "var", parent: this.#root }) });
-    this.#root.addChild({ child: new Folder({ name: "tmp", parent: this.#root }) });
-    this.#root.addChild({ child: new Folder({ name: "opt", parent: this.#root }) });
-    (this.#root.children.filter(entry => entry instanceof Folder && entry.name == "bin")[0] as Folder).addChild({ child: new Folder({ name: "subdir", parent: this.#root.children.filter(entry => entry instanceof Folder && entry.name == "bin")[0] as Folder }) });
+    for (const rootFolder of ROOT_FOLDERS) {
+      this.#root.addChild({ child: new Folder({ name: rootFolder, parent: this.#root }) });
+    }
+    // this.#root.addChild({ child: new Folder({ name: "home", parent: this.#root }) });
+
   }
 
   subscribe(listener: FSEventListener) {
