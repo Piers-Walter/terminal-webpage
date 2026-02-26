@@ -1,7 +1,6 @@
 import { useAppContext } from "@/contexts/AppContext";
 import NavBar from "./NavBar";
-import { useEffect, useMemo, useState } from "react";
-import getCwdHandler from "@/utils/cwdHandler";
+import { useEffect, useState } from "react";
 import { Folder, File } from "../Terminal/FileSystem/FakeFS";
 import { FcFile, FcFolder } from "react-icons/fc";
 
